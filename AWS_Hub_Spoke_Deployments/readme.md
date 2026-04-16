@@ -96,8 +96,11 @@ All outbound traffic from application VPCs is routed through:
 ### 3. Environment Safety
 
 ```hcl
-prevent_destroy = var.environment == "prod"
+changed to prevent_destroy = false
+
+from prevent_destroy = var.environment == "prod"
 ```
+Sice Terraform dosen't allow to pass this parameter during runtime
 
 Prevents accidental deletion of:
 
