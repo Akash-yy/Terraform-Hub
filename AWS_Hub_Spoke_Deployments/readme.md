@@ -1,5 +1,13 @@
 # AWS Multi-VPC Transit Gateway Architecture (Arch-01)
 
+## Graph View
+```
+terraform graph -type=plan | dot -Tpng > graph.png
+
+```
+
+![Architecture](./graph.png)
+
 ## Overview
 
 This project provisions a multi-VPC AWS network architecture using Terraform, featuring:
