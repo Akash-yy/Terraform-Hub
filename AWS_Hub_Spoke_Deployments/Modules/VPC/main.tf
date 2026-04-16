@@ -12,16 +12,6 @@ resource "aws_vpc" "this" {
   }
 }
 
-resource "aws_vpc" "this" {
-  cidr_block = var.cidr
-  enable_dns_hostnames = true
-
-  tags = {
-    Name = var.name
-  }
-}
-
-# Private Subnets
 resource "aws_subnet" "private" {
   count = length(var.private_subnets)
 
@@ -34,7 +24,6 @@ resource "aws_subnet" "private" {
   }
 }
 
-# TGW Subnets
 resource "aws_subnet" "tgw" {
   count = length(var.tgw_subnets)
 
@@ -47,16 +36,10 @@ resource "aws_subnet" "tgw" {
   }
 }
 
-# Route Table (private)
 resource "aws_route_table" "private" {
   vpc_id = aws_vpc.this.id
-
-  tags = {
-    Name = "${var.name}-private-rt"
-  }
 }
 
-# Association
 resource "aws_route_table_association" "private" {
   count = length(aws_subnet.private)
 
