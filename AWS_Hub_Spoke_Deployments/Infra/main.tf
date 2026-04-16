@@ -7,8 +7,7 @@ provider "aws" {
 ######################
 
 module "vpc1" {
-  source = "../Modules/vpc"
-
+  source = "../Modules/VPC"
   name = "vpc-1"
   cidr = "10.0.0.0/16"
 
@@ -17,11 +16,11 @@ module "vpc1" {
   private_subnets = ["10.0.1.0/24"]
   tgw_subnets     = ["10.0.2.0/24"]
 
-  environment = var.environment
+#  environment = var.environment
 }
 
 module "vpc2" {
-  source = "./modules/vpc"
+  source = "../Modules/VPC"
 
   name = "vpc-2"
   cidr = "10.1.0.0/16"
@@ -31,11 +30,12 @@ module "vpc2" {
   private_subnets = ["10.1.1.0/24"]
   tgw_subnets     = ["10.1.2.0/24"]
 
-  environment = var.environment
+ # environment = var.environment
+#prevent_destroy = var.environment == "prod"
 }
 
 module "inspection_vpc" {
-  source = "./modules/vpc"
+  source = "../Modules/VPC"
 
   name = "inspection-vpc"
   cidr = "10.2.0.0/16"
@@ -45,7 +45,7 @@ module "inspection_vpc" {
   private_subnets = ["10.2.1.0/24"]
   tgw_subnets     = ["10.2.2.0/24"]
 
-  environment = var.environment
+ # environment = var.environment
 }
 
 ######################
@@ -53,8 +53,8 @@ module "inspection_vpc" {
 ######################
 
 module "tgw" {
-  source = "./modules/tgw"
-  environment = var.environment
+  source = "../Modules/TGW"
+  #environment = var.environment
 }
 
 ######################
@@ -147,7 +147,7 @@ resource "aws_security_group" "allow_all_vpc1" {
 ######################
 
 module "ec2_vpc1" {
-  source = "./modules/ec2"
+  source = "../Modules/EC2"
 
   name      = "ec2-vpc1"
   subnet_id = module.vpc1.private_subnets[0]

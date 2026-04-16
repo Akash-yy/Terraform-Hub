@@ -4,7 +4,7 @@ resource "aws_vpc" "this" {
   enable_dns_hostnames = true
 
   lifecycle {
-    prevent_destroy = var.environment == "prod"
+    prevent_destroy = false
   }
 
   tags = {

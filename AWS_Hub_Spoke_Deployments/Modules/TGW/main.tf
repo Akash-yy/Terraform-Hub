@@ -5,7 +5,7 @@ resource "aws_ec2_transit_gateway" "this" {
   default_route_table_propagation = "disable"
 
   lifecycle {
-    prevent_destroy = var.environment == "prod"
+    prevent_destroy = false 
   }
 }
 
